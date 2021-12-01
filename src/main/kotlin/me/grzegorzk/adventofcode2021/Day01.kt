@@ -4,12 +4,7 @@ import me.grzegorzk.adventofcode2021.utils.givenAdventInputFromFile
 
 object Day01 {
     private fun numberOfInc(lines: List<Int>): Int =
-        (1 until lines.size).fold(0) { acc, i ->
-            if (lines[i] > lines[i - 1])
-                acc + 1
-            else
-                acc
-        }
+        lines.zipWithNext { a, b -> a < b }.count { it }
 
     private fun prepareInputForPart01(data: String): List<Int> =
         data.lines().map { it.toInt() }
@@ -33,6 +28,7 @@ object Day01 {
         println("Part 2:")
         println(numberOfInc(prepareInputForPart02(sampleInput)))
         println(numberOfInc(prepareInputForPart02(input)))
+
     }
 }
 
