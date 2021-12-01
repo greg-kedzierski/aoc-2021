@@ -6,10 +6,10 @@ object Day01 {
     private fun numberOfInc(lines: List<Int>): Int =
         lines.zipWithNext { a, b -> a < b }.count { it }
 
-    private fun prepareInputForPart01(data: String): List<Int> =
+    private fun inputPart01(data: String): List<Int> =
         data.lines().map { it.toInt() }
 
-    private fun prepareInputForPart02(data: String): List<Int> =
+    private fun inputPart02(data: String): List<Int> =
         data.lines().map { it.toInt() }
             .let { lines ->
                 (0..lines.size - 3).map {
@@ -22,12 +22,12 @@ object Day01 {
         val input = givenAdventInputFromFile("day01.txt")
 
         println("Part 1:")
-        println(numberOfInc(prepareInputForPart01(sampleInput)))
-        println(numberOfInc(prepareInputForPart01(input)))
+        println(numberOfInc(inputPart01(sampleInput)))
+        println(numberOfInc(inputPart01(input)))
 
         println("Part 2:")
-        println(numberOfInc(prepareInputForPart02(sampleInput)))
-        println(numberOfInc(prepareInputForPart02(input)))
+        println(numberOfInc(inputPart02(sampleInput)))
+        println(numberOfInc(inputPart02(input)))
 
     }
 }
