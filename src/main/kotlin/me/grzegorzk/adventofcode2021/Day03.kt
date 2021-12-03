@@ -12,7 +12,7 @@ object Day03 {
         input
             .fold(Array(input[0].size) { 0 }) { acc, row ->
                 row.indices.fold(acc) { ac, i ->
-                    ac.also { ac[i] += row[i] and 1 }
+                    ac.also { ac[i] += row[i] }
                 }
             }
             .map { it > input.size / 2 }
