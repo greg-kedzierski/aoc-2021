@@ -21,7 +21,6 @@ object Day04 {
         private fun allMarkedInColumn(col: Int) = cells.fold(true) { acc, r -> acc && r[col].marked }
 
         private fun allMarkedInRow(row: List<Cell>) = row.fold(true) { acc, cell -> acc && cell.marked }
-
     }
 
     private fun prepareBingoInput(input: String): Pair<List<Int>, List<BingoBoard>> =
