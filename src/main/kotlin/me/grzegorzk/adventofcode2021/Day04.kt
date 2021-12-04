@@ -5,35 +5,47 @@ import me.grzegorzk.adventofcode2021.utils.givenAdventInputFromFile
 object Day04 {
     data class Cell(val value: Int, var marked: Boolean = false)
 
-    private fun prepareBingoInput(input: String) =
+    data class BingoBoard(val cells: List<List<Cell>>) {
+        fun bingo(number: Int): Boolean {
+            cells.forEach { rows ->
+                rows.forEachIndexed { col, cell ->
+                    if (cell.value == number) {
+                        cell.marked = true
+                        return allMarkedInRow(rows) || allMarkedInColumn(col)
+                    }
+                }
+            }
+            return false
+        }
+
+        private fun allMarkedInColumn(col: Int) = cells.fold(true) { acc, r -> acc && r[col].marked }
+
+        private fun allMarkedInRow(row: List<Cell>) = row.fold(true) { acc, cell -> acc && cell.marked }
+
+    }
+
+    private fun prepareBingoInput(input: String): Pair<List<Int>, List<BingoBoard>> =
         input.split("\r\n\r\n").let { lines ->
             Pair(
                 lines[0].split(",").map { Integer.parseInt(it) },
                 lines.drop(1).map {
                     it.split("\r\n").map { row ->
-                        row.trim().split("\\s+".toRegex())
-                            .map { value -> Cell(Integer.parseInt(value)) }
-                    }
+                        row.trim().split("\\s+".toRegex()).map { value ->
+                            Cell(Integer.parseInt(value))
+                        }
+                    }.let(::BingoBoard)
                 })
         }
 
 
-    private fun playBingo(numbersToDraw: List<Int>, boards: List<List<List<Cell>>>): Map<Int, Pair<Int, Int>> {
+    private fun playBingo(numbersToDraw: List<Int>, boards: List<BingoBoard>): Map<Int, Pair<Int, Int>> {
         val results = mutableMapOf<Int, Pair<Int, Int>>()
 
         numbersToDraw.forEachIndexed { index, draw ->
             boards.forEachIndexed { boardIndex, board ->
                 if (!results.containsKey(boardIndex)) {
-                    for (row in board) {
-                        row.forEachIndexed { colIndex, ceil ->
-                            if (ceil.value == draw) {
-                                ceil.marked = true
-                            }
-                            val bingo = allMarkedInRow(row) || allMarkedInColumn(board, colIndex)
-                            if (bingo) {
-                                results.putIfAbsent(boardIndex, Pair(sumOfUnmarkedCells(board) * draw, index))
-                            }
-                        }
+                    if (board.bingo(draw)) {
+                        results[boardIndex] = Pair(sumOfUnmarkedCells(board.cells) * draw, index)
                     }
                 }
             }
@@ -41,16 +53,6 @@ object Day04 {
 
         return results
     }
-
-    private fun allMarkedInColumn(board: List<List<Cell>>, colIndex: Int) =
-        board.fold(true) { acc, r ->
-            acc && r[colIndex].marked
-        }
-
-    private fun allMarkedInRow(row: List<Cell>) =
-        row.fold(true) { acc, ceil ->
-            acc && ceil.marked
-        }
 
     private fun sumOfUnmarkedCells(board: List<List<Cell>>) =
         board.flatten().filter { !it.marked }.map { it.value }.fold(0, Integer::sum)
