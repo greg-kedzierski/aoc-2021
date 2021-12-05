@@ -43,10 +43,8 @@ object Day05 {
 
     private fun countOverlappedLines(lines: List<Line>): Int {
         val maxVal = lines.map { maxOf(it.first.x, it.first.y, it.second.x, it.second.y) }.reduce(Integer::max)
-        val map = lines.map { Pair(it, it.toDef()) }
-
         val result = Array(maxVal + 1) { IntArray(maxVal + 1) }
-
+        val map = lines.map { Pair(it, it.toDef()) }
         for ((line, funDef) in map) {
             when (funDef) {
                 is IntFunDef -> range(line.first.x, line.second.x).forEach { x -> result[x][funDef(x)] += 1 }
