@@ -16,11 +16,9 @@ object Day06 {
         toList().also { rotate(it, distance) }.toTypedArray()
 
     private fun lanternFishSpawns(days: Int, noOfFishPerDaysToSpawn: Array<Long>): Long =
-        noOfFishPerDaysToSpawn.copyOf().let { fish ->
-            (1..days).fold(fish) { acc, _ ->
-                acc.rotate(-1).also { it[6] += it[8] }
-            }.sum()
-        }
+        (1..days).fold(noOfFishPerDaysToSpawn) { acc, _ ->
+            acc.rotate(-1).also { it[6] += it[8] }
+        }.sum()
 
     operator fun invoke() {
         val sampleInput = prepareInput(givenAdventInputFromFile("day06_sample.txt"))
