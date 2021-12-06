@@ -14,7 +14,7 @@ object Day06 {
     private inline fun <reified T> Array<T>.rotate(distance: Int): Array<T> =
         toList().also { rotate(it, distance) }.toTypedArray()
 
-    private fun lanternFishSpawns(days: Int, noOfFishPerDaysToSpawn: Array<Long>): Long =
+    private fun lanternFishGrowth(days: Int, noOfFishPerDaysToSpawn: Array<Long>): Long =
         (1..days).fold(noOfFishPerDaysToSpawn) { acc, _ ->
             acc.rotate(-1).also { it[6] += it[8] }
         }.sum()
@@ -24,12 +24,12 @@ object Day06 {
         val input = prepareInput(givenAdventInputFromFile("day06.txt"))
 
         println("Part 1:")
-        println(lanternFishSpawns(80, sampleInput))
-        println(lanternFishSpawns(80, input))
+        println(lanternFishGrowth(80, sampleInput))
+        println(lanternFishGrowth(80, input))
 
         println("Part 2:")
-        println(lanternFishSpawns(256, sampleInput))
-        println(lanternFishSpawns(256, input))
+        println(lanternFishGrowth(256, sampleInput))
+        println(lanternFishGrowth(256, input))
     }
 }
 
