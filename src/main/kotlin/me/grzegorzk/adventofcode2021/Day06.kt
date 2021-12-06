@@ -6,8 +6,8 @@ import java.util.Collections.rotate
 object Day06 {
     private fun prepareInput(input: String) =
         input.split(",").map { it.toInt() }
-            .fold(Array<Long>(9) { 0 }) { acc, e ->
-                acc.also { acc[e]++ }
+            .fold(Array<Long>(9) { 0 }) { acc, i ->
+                acc.also { acc[i]++ }
             }
 
 
