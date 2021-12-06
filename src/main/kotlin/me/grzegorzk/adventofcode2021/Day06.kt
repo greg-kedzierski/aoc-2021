@@ -10,7 +10,6 @@ object Day06 {
                 acc.also { acc[i]++ }
             }
 
-
     private inline fun <reified T> Array<T>.rotate(distance: Int): Array<T> =
         toList().also { rotate(it, distance) }.toTypedArray()
 
