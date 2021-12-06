@@ -4,13 +4,12 @@ import me.grzegorzk.adventofcode2021.utils.givenAdventInputFromFile
 import java.util.Collections.rotate
 
 object Day06 {
-    private fun prepareInput(input: String) = input.split(",").map { it.toInt() }
-        .groupBy { it }
-        .mapValues { it.value.fold(0L) { acc, _ -> acc + 1 } }.let { sampleInput ->
-            Array<Long>(9) { 0 }.also {
-                sampleInput.forEach { p -> it[p.key] = p.value }
+    private fun prepareInput(input: String) =
+        input.split(",").map { it.toInt() }
+            .fold(Array<Long>(9) { 0 }) { acc, e ->
+                acc.also { acc[e]++ }
             }
-        }
+
 
     private inline fun <reified T> Array<T>.rotate(distance: Int): Array<T> =
         toList().also { rotate(it, distance) }.toTypedArray()
