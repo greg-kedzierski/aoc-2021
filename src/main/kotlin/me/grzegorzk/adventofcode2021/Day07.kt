@@ -12,10 +12,7 @@ object Day07 {
     private fun minCostOfFuelFun(list: List<Int>, costFn: (Int) -> Int): Int =
         (list.reduce(Integer::min)..list.reduce(Integer::max)).let { range ->
             range.fold(Int.MAX_VALUE) { min, i ->
-                min(
-                    list.fold(0) { sum, j -> costFn(abs(i - j)) + sum },
-                    min
-                )
+                min(min, list.fold(0) { sum, j -> costFn(abs(i - j)) + sum })
             }
         }
 
