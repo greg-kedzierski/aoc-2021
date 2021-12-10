@@ -13,8 +13,8 @@ object Day10 {
         ArrayDeque<Char>().let { deq ->
             line.fold(' ') { acc, c ->
                 if (c in listOf('(', '[', '{', '<'))
-                    deq.addFirst(c).let { acc }
-                else if (deq.removeFirst() != paraMatch[c])
+                    deq.addLast(c).let { acc }
+                else if (deq.removeLast() != paraMatch[c])
                     c
                 else
                     acc
@@ -25,7 +25,7 @@ object Day10 {
         ArrayDeque<Char>().let { deq ->
             line.fold(deq) { acc, c ->
                 if (c in listOf('(', '[', '{', '<'))
-                    acc.add(c).let { acc }
+                    acc.addLast(c).let { acc }
                 else if (deq.removeLast() != paraMatch[c])
                     return 0
                 else
