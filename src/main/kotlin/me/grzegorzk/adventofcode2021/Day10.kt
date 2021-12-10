@@ -32,7 +32,7 @@ object Day10 {
                     acc
             }
         }.let { deq ->
-            deq.map { pointsMap[it]!! }.foldRight(0L) { acc, total ->
+            deq.map { pointsMap[it] ?: 0 }.foldRight(0L) { acc, total ->
                 5 * total + acc
             }
         }
