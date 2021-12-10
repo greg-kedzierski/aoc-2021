@@ -11,16 +11,14 @@ object Day10 {
 
     private fun scoreCorrupted(line: String, pointsMap: Map<Char, Int>): Int =
         ArrayDeque<Char>().let { deq ->
-            line.fold(0) { acc, c ->
-                if (acc > 0)
-                    return acc
+            line.fold(' ') { acc, c ->
                 if (c in listOf('(', '[', '{', '<'))
                     deq.addFirst(c).let { acc }
                 else if (deq.removeFirst() != paraMatch[c])
-                    acc + pointsMap[c]!!
+                    c
                 else
                     acc
-            }
+            }.let { pointsMap[it] ?: 0 }
         }
 
     private fun scoreIncomplete(line: String, pointsMap: Map<Char, Int>): Long =
