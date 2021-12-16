@@ -27,7 +27,7 @@ object Day16 {
 
     private fun valueOf(packet: Packet): Long = when (packet) {
         is Literal -> packet.value
-        is Operator -> (packet.packets.map { valueOf(it) }).let { v -> packet.type.eval(v) }
+        is Operator -> (packet.packets.map { valueOf(it) }).let { packet.type.eval(it) }
     }
 
     private fun binListToNumber(input: List<Int>): Long = input.fold(0L) { acc, bit -> (acc shl 1) + bit }
