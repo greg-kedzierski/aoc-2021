@@ -5,7 +5,7 @@ import me.grzegorzk.adventofcode2021.utils.givenAdventInputFromFile
 object Day20 {
 
     private fun parse(input: List<String>): Pair<BooleanArray, Array<BooleanArray>> {
-        val imageEnhancement = input.first().map { it != '.' }.toBooleanArray()
+        val imageEnhancement = input[0].map { it != '.' }.toBooleanArray()
         val increaseBy = 50 // ✨✨✨ magic number ✨✨✨
         val imageString = input.drop(2)
         val image = Array(imageString.size + (increaseBy shl 1)) {
@@ -30,7 +30,7 @@ object Day20 {
     private fun List<Boolean>.toNumber(): Int = fold(0) { acc, bit -> (acc shl 1) + if (bit) 1 else 0 }
 
     private fun enhancementAlg(imageEnhancement: BooleanArray, image: Array<BooleanArray>): Array<BooleanArray> {
-        val newImage = Array(image.size) { BooleanArray(image.first().size) }
+        val newImage = Array(image.size) { BooleanArray(image[0].size) }
         val xRange = image[0].indices
         val yRange = image.indices
 
