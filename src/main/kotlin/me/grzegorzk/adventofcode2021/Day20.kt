@@ -11,8 +11,8 @@ object Day20 {
         val image = Array(imageString.size + (increaseBy shl 1)) {
             BooleanArray(imageString[0].length + (increaseBy shl 1))
         }
-        imageString.forEachIndexed() { i, l ->
-            l.forEachIndexed { j, c -> image[i + increaseBy][j + increaseBy] = (c != '.') }
+        imageString.forEachIndexed() { i, row ->
+            row.forEachIndexed { j, char -> image[i + increaseBy][j + increaseBy] = (char != '.') }
         }
         return Pair(imageEnhancement, image)
     }
